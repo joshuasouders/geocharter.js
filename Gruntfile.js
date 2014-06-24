@@ -1,7 +1,15 @@
 module.exports = function(grunt) {
-
   var config = {
     pkg: grunt.file.readJSON('package.json'),
+    jshint: {
+      all: ['Gruntfile.js', 'js/*.js', 'js/views/*.js']
+    },
+    concat: {
+      dist: {
+        src: ['js/panel.js', 'js/chart.js', 'js/piechart.js', 'js/barchart.js'],
+        dest: 'build/geocharter.js',
+      },
+    },
     uglify: {
       options: {
         banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
@@ -10,22 +18,24 @@ module.exports = function(grunt) {
         src: 'build/geocharter.js',
         dest: 'build/geocharter.min.js'
       }
-    }
+    },
+    copy: {
+      main: {
+        flatten: true,
+        expand: true,
+        src: 'build/*.js',
+        dest: 'example/scripts/'
+      },
+    },
   };
 
-  // Project configuration.
   grunt.initConfig(config);
 
-  // Load the plugin that provides the "uglify" task.
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-copy');
 
-  // Default task(s).
-  grunt.registerTask('default', ['uglify']);
-
-  // Set the build destination to the example folder
-  config.uglify.build.dest = 'example/js/geocharter.min.js'
-
-  // Register the task to build into the example folder
-  grunt.registerTask('default', ['uglify']);
+  grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'copy']);
 
 };
