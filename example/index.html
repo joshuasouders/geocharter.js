@@ -18,11 +18,12 @@
 	<script src="scripts/ChartNew.js"></script>
 </head>
 <body>
-	<div id="bar1" geocharter-width="4" geocharter-height="4"></div>
-	<button onclick="clicked()">here</button>
-	<div id="pie2" geocharter-width="4" geocharter-height="4"></div>
-	<div id="bar3" geocharter-width="4" geocharter-height="8"></div>
-	<div id="pie4" geocharter-width="8" geocharter-height="4"></div>
+	<button id="changeData" onclick="clicked()">Change Data</button>
+	<div id="container" class="geocharter-container">
+		<div id="bar1" class="geocharter-panel" geocharter-width="4" geocharter-height="4"></div>
+		<div id="bar3" class="geocharter-panel" geocharter-width="8" geocharter-height="4"></div>
+		<div id="bar4" class="geocharter-panel" geocharter-width="4" geocharter-height="4"></div>
+	</div>
 </body>
 	<script src="scripts/main.js"></script>
 </html>

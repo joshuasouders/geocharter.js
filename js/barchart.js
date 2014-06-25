@@ -1,12 +1,10 @@
-function Barchart(id, data, options){
+function Barchart(id, data, position, options){
 	this.id = id;
 	this.data = data;
+	this.panel = new Panel(id, position);
 	this.div = document.getElementById(this.id);
 	this.chart = "";
 	this.chartContext = "";
-
-	this.defCanvasWidth=1200;
-	this.defCanvasHeight=600;
 
 	this.options = {
 	    inGraphDataShow : false,
@@ -17,7 +15,7 @@ function Barchart(id, data, options){
 	    scaleTickSizeBottom : 5,
 	    scaleTickSizeTop : 5,
 	    scaleFontSize : 16,
-	    canvasBorders : true,
+	    canvasBorders : false,
 	    canvasBordersWidth : 1,
 	    canvasBordersColor : "black",
 	    graphTitle : "",
@@ -64,10 +62,10 @@ function Barchart(id, data, options){
 			yAxisUnitFontStyle : "normal",
 			yAxisUnitFontColor : "#666",
 	    annotateDisplay : true, 
-	    spaceTop : 0,
-	    spaceBottom : 0,
-	    spaceLeft : 0,
-	    spaceRight : 0,
+	    spaceTop : 30,
+	    spaceBottom : 30,
+	    spaceLeft : 30,
+	    spaceRight : 30,
 	    logarithmic: false,
 	    showYAxisMin : true,
 	    rotateLabels : "smart",
@@ -97,8 +95,6 @@ function Barchart(id, data, options){
 			}
 		}
 	}
-
-	console.log(this.options);
 	
 	this.initializeChart();
 	this.setData(this.data);
@@ -107,6 +103,7 @@ function Barchart(id, data, options){
 Barchart.prototype.constructor = Barchart;
 
 Barchart.prototype.initializeChart = function(){
+	this.div.innerHTML = "";
 	var canvas = document.createElement('canvas');
 	canvas.setAttribute("id", 'geocharter-' + this.id);
 	canvas.width = this.div.clientWidth;
