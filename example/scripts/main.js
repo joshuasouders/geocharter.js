@@ -1,36 +1,36 @@
-var pie = [
-	{
-		value: 30,
-		color:"#F38630"
-	},
-	{
-		value : 50,
-		color : "#E0E4CC"
-	},
-	{
-		value : 100,
-		color : "#69D2E7"
-	}			
-];
-
 var bar = {
-	labels : ["January","February","March","April","May","June"],
+	title: "Test",
+	labels : ["January","February","March","April","May","June","July"],
 	datasets : [
 		{
-			fillColor : "#48A497",
-			strokeColor : "#48A4D1",
-			data : [456,479,324,569,702,600]
-		},
-		{
-			fillColor : "rgba(73,188,170,0.4)",
-			strokeColor : "rgba(72,174,209,0.4)",
-			data : [364,504,605,400,345,320]
+			fillColor : "rgba(151,187,205,0.5)",
+			strokeColor : "rgba(151,187,205,1)",
+			pointColor : "rgba(151,187,205,1)",
+			pointStrokeColor : "#fff",
+			data : [0.65,0.59,0.90,0.81,0.56,0.55,0.40],
+      		title : "pFirst data"
 		}
-
 	]
 };
 
-var pie1 = new Barchart("bar1", bar);
-var pie2 = new Piechart("pie2", pie);
-var pie3 = new Barchart("bar3", bar);
-var pie4 = new Piechart("pie4", pie);
+var mydatam1 = {
+		labels : ["January","February","March","April","May","June","July"],
+		datasets : [
+			{
+				fillColor : "rgba(151,187,205,0.5)",
+				strokeColor : "rgba(151,187,205,1)",
+				pointColor : "rgba(151,187,205,1)",
+				pointStrokeColor : "#fff",
+				data : [28,48,40,19,96,27,80],
+	      title : "Second data"
+			}
+		]
+	};
+
+
+var pie1 = new Barchart("bar1", bar, {graphTitle: "Test 1"});
+var pie2 = new Barchart("bar3", bar, {graphTitle: "Test 2"});
+
+var clicked = function(){
+	pie1.setData(mydatam1);
+};
