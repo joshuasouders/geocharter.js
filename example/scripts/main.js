@@ -27,17 +27,26 @@ var mydatam1 = {
 	]
 };
 
-var pie1, pie2, pie3;
+var bar1, bar2, bar3, bar4, bar5, bar6, bar7, bar8;
 
 $(document).ready(function(){
-	 pie1 = new Barchart("bar1", bar, {topLeft: [0,0], bottomRight: [6, 2]}, {graphTitle: "Test 1"});
-	 pie2 = new Barchart("bar3", mydatam1, {topLeft: [6,0], bottomRight: [12,2]}, {graphTitle: "Test 2"});
-	 pie3 = new Barchart("bar4", bar, {topLeft: [0,2], bottomRight: [12, 5]}, {graphTitle: "Test 3"});
+	 bar1 = new Barchart("1", bar, {topLeft: [0,0], bottomRight: [3, 2]}, {graphTitle: "Test 1"});
+	 bar2 = new Barchart("2", mydatam1, {topLeft: [3, 0], bottomRight: [8, 3]}, {graphTitle: "Test 2"});
+	 bar3 = new Barchart("3", bar, {topLeft: [8, 0], bottomRight: [12, 5]}, {graphTitle: "Test 3"});
+	 bar4 = new Barchart("4", bar, {topLeft: [3, 3], bottomRight: [5, 7]}, {graphTitle: "Test 4"});
+	 bar8 = new Barchart("8", mydatam1, {topLeft: [5, 3], bottomRight: [8, 5]}, {graphTitle: "Test 8"});
+	 bar5 = new Barchart("5", mydatam1, {topLeft: [0, 2], bottomRight: [3, 7]}, {graphTitle: "Test 5"});
+	 bar6 = new Barchart("6", bar, {topLeft: [0, 7], bottomRight: [12, 10]}, {graphTitle: "Test 6"});
+	 bar7 = new Barchart("7", bar, {topLeft: [5, 5], bottomRight: [12, 7]}, {graphTitle: "Test 7"});
 });
 
 function clicked(){
-	console.log("test");
-	pie1 = new Barchart("bar1", mydatam1, {topLeft: [0,0], bottomRight: [6, 2]}, {graphTitle: "Test 1"});
-	pie2 = new Barchart("bar3", bar, {topLeft: [6,0], bottomRight: [12,2]}, {graphTitle: "Test 2"});
-	pie3 = new Barchart("bar4", mydatam1, {topLeft: [0,2], bottomRight: [12, 5]}, {graphTitle: "Test 3"});
+	 bar1 = new Barchart("1", mydatam1, {topLeft: [0,0], bottomRight: [3, 2]}, {graphTitle: "Test 1"});
+	 bar2 = new Barchart("2", bar, {topLeft: [3, 0], bottomRight: [8, 3]}, {graphTitle: "Test 2"});
+	 bar3 = new Barchart("3", mydatam1, {topLeft: [8, 0], bottomRight: [12, 5]}, {graphTitle: "Test 3"});
+	 bar4 = new Barchart("4", mydatam1, {topLeft: [3, 3], bottomRight: [5, 7]}, {graphTitle: "Test 4"});
+	 bar8 = new Barchart("8", bar, {topLeft: [5, 3], bottomRight: [8, 5]}, {graphTitle: "Test 8"});
+	 bar5 = new Barchart("5", bar, {topLeft: [0, 2], bottomRight: [3, 7]}, {graphTitle: "Test 5"});
+	 bar6 = new Barchart("6", mydatam1, {topLeft: [0, 7], bottomRight: [12, 10]}, {graphTitle: "Test 6"});
+	 bar7 = new Barchart("7", mydatam1, {topLeft: [5, 5], bottomRight: [12, 7]}, {graphTitle: "Test 7"});
 };
