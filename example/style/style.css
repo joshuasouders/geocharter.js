@@ -1,8 +1,8 @@
 html{
-	overflow: scroll;
+	overflow-y: scroll;
 }
 .geocharter-container{
-	width:90%;
+	width:100%;
 	margin: 0 auto;
 	position:relative;
 }
