@@ -1,4 +1,4 @@
-Dasher
+Geocharter.js
 ===============
 
 A charting and mapping library created to facilitate the rapid deployment of geodashboards.
@@ -7,4 +7,3 @@ A charting and mapping library created to facilitate the rapid deployment of geo
 * See example forlder for a practical example.
 
 ![alt tag](https://raw.githubusercontent.com/joshuasouders/geocharter.js/master/screenshot.png)
-
