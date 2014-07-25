@@ -7,7 +7,7 @@ module.exports = function(grunt) {
     concat: {
       dist: {
         src: ['js/panel.js', 'js/chart.js', 'js/piechart.js', 'js/barchart.js'],
-        dest: 'build/geocharter.js',
+        dest: 'build/dasher.js',
       },
     },
     uglify: {
@@ -15,8 +15,8 @@ module.exports = function(grunt) {
         banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
       },
       build: {
-        src: 'build/geocharter.js',
-        dest: 'build/geocharter.min.js'
+        src: 'build/dasher.js',
+        dest: 'build/dasher.min.js'
       }
     },
     copy: {

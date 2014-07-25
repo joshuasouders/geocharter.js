@@ -1,19 +1,35 @@
 html{
 	overflow-y: scroll;
 }
-.geocharter-container{
+.dasher-container{
 	width:100%;
 	margin: 0 auto;
 	position:relative;
 }
-.geocharter-panel{
+.dasher-panel{
 	float:left;
 	display:inline;
 	width:500px;
 	height:500px;
+	padding:5px;
+	margin:10px;
+	border-style: solid;
+    border-width: 1px;
 	position:absolute;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+	border-radius: 15px;
+	-khtml-border-radius: 15px;
+}
+.title{
+	font-size:30px;
 }
 #changeData{
 	display:block;
 	margin:0 auto;
+}
+h3{
+	text-align:center;
+	margin-top:5px;
+	margin-bottom:10px;
 }

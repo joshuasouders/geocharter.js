@@ -1,85 +1,11 @@
-function Barchart(id, data, position, options){
+function Barchart(id, data, position, title, options){
 	this.id = id;
 	this.data = data;
 	this.panel = new Panel(id, position);
 	this.div = document.getElementById(this.id);
 	this.chart = "";
 	this.chartContext = "";
-
-	this.options = {
-	    inGraphDataShow : false,
-	    datasetFill : true,
-	    scaleLabel: "<%=value%>",
-	    scaleTickSizeRight : 5,
-	    scaleTickSizeLeft : 5,
-	    scaleTickSizeBottom : 5,
-	    scaleTickSizeTop : 5,
-	    scaleFontSize : 16,
-	    canvasBorders : false,
-	    canvasBordersWidth : 1,
-	    canvasBordersColor : "black",
-	    graphTitle : "",
-			graphTitleFontFamily : "'Arial'",
-			graphTitleFontSize : 24,
-			graphTitleFontStyle : "bold",
-			graphTitleFontColor : "#666",
-	    graphSubTitle : "",
-			graphSubTitleFontFamily : "'Arial'",
-			graphSubTitleFontSize : 18,
-			graphSubTitleFontStyle : "normal",
-			graphSubTitleFontColor : "#666",
-	    footNote : "",
-			footNoteFontFamily : "'Arial'",
-			footNoteFontSize : 8,
-			footNoteFontStyle : "bold",
-			footNoteFontColor : "#666",
-	    legend : false,
-		    legendFontFamily : "'Arial'",
-		    legendFontSize : 12,
-		    legendFontStyle : "normal",
-		    legendFontColor : "#666",
-	    legendBlockSize : 15,
-	    legendBorders : false,
-	    legendBordersWidth : 1,
-	    legendBordersColors : "#666",
-	    yAxisLeft : true,
-	    yAxisRight : false,
-	    xAxisBottom : true,
-	    xAxisTop : false,
-	    yAxisLabel : "",
-			yAxisFontFamily : "'Arial'",
-			yAxisFontSize : 16,
-			yAxisFontStyle : "normal",
-			yAxisFontColor : "#666",
-	    xAxisLabel : "",
-		 	xAxisFontFamily : "'Arial'",
-			xAxisFontSize : 16,
-			xAxisFontStyle : "normal",
-			xAxisFontColor : "#666",
-	    yAxisUnit : "",
-			yAxisUnitFontFamily : "'Arial'",
-			yAxisUnitFontSize : 8,
-			yAxisUnitFontStyle : "normal",
-			yAxisUnitFontColor : "#666",
-	    annotateDisplay : true, 
-	    spaceTop : 30,
-	    spaceBottom : 30,
-	    spaceLeft : 30,
-	    spaceRight : 30,
-	    logarithmic: false,
-	    showYAxisMin : true,
-	    rotateLabels : "smart",
-	    xAxisSpaceOver : 0,
-	    xAxisSpaceUnder : 0,
-	    xAxisLabelSpaceAfter : 0,
-	    xAxisLabelSpaceBefore : 0,
-	    legendBordersSpaceBefore : 0,
-	    legendBordersSpaceAfter : 0,
-	    footNoteSpaceBefore : 0,
-	    footNoteSpaceAfter : 0, 
-	    startAngle : 0,
-	    dynamicDisplay : false
-	};
+	this.title = title;
 
 	var i;
 	for(i in options){
@@ -103,11 +29,11 @@ function Barchart(id, data, position, options){
 Barchart.prototype.constructor = Barchart;
 
 Barchart.prototype.initializeChart = function(){
-	this.div.innerHTML = "";
+	this.div.innerHTML = "<h3>" + this.title + "</h3>";
 	var canvas = document.createElement('canvas');
 	canvas.setAttribute("id", 'geocharter-' + this.id);
-	canvas.width = this.div.clientWidth;
-	canvas.height = this.div.clientHeight;
+	canvas.width = this.div.clientWidth - window.getComputedStyle(this.div, null).getPropertyValue('padding-right').replace(/\D/g,'') - window.getComputedStyle(this.div, null).getPropertyValue('padding-left').replace(/\D/g,'');
+	canvas.height = this.div.clientHeight - window.getComputedStyle(this.div, null).getPropertyValue('padding-bottom').replace(/\D/g,'') - window.getComputedStyle(this.div, null).getPropertyValue('padding-top').replace(/\D/g,'') - $("h3").css("fontSize").replace(/\D/g,'') - $("h3").css("margin-top").replace(/\D/g,'') - $("h3").css("margin-bottom").replace(/\D/g,'');
 
 	this.div.innerHTML = this.div.innerHTML + canvas.outerHTML;
 	this.chartContext = document.getElementById("geocharter-" + this.id).getContext("2d");
@@ -115,5 +41,4 @@ Barchart.prototype.initializeChart = function(){
 
 Barchart.prototype.setData = function(data){
 	this.chart = new Chart(this.chartContext).Bar(data, this.options);
-	console.log("changing data");
 };
