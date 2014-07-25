@@ -6,7 +6,7 @@ module.exports = function(grunt) {
     },
     concat: {
       dist: {
-        src: ['js/panel.js', 'js/chart.js', 'js/piechart.js', 'js/barchart.js', 'js/linechart.js'],
+        src: ['js/panel.js', 'js/chart.js', 'js/piechart.js', 'js/barchart.js', 'js/linechart.js', 'js/map.js'],
         dest: 'build/dasher.js',
       },
     },
