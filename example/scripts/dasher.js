@@ -1,24 +1,23 @@
-function Panel(id, position){
-	this.id = id;
+function Panel(div, position){
 	this.topLeftGraph = position.topLeft;
 	this.bottomRightGraph = position.bottomRight;
 
-	this.containerWidth = $('#' + id).parent().width();//document.getElementById(this.id).parent()[0].offsetWidth;
-	this.containerHeight =  $('#' + id).parent().height();
+	this.containerWidth = $(div).parent().width();//document.getElementById(this.id).parent()[0].offsetWidth;
+	this.containerHeight =  $(div).parent().height();
 
 	this.stepSize = this.containerWidth / 12;
 
 	this.topLeft = [Math.floor(this.topLeftGraph[0]*this.stepSize), Math.floor(this.topLeftGraph[1]*this.stepSize)];
 	this.bottomRight = [Math.floor(this.bottomRightGraph[0]*this.stepSize), Math.floor(this.bottomRightGraph[1]*this.stepSize)];
 
-	this.width = this.bottomRight[0] - this.topLeft[0] - $('#' + id).css("margin").replace(/\D/g,'');
-	this.height = this.bottomRight[1] - this.topLeft[1] - $('#' + id).css("margin").replace(/\D/g,'');
+	this.width = this.bottomRight[0] - this.topLeft[0] - $(div).css("margin").replace(/\D/g,'');
+	this.height = this.bottomRight[1] - this.topLeft[1] - $(div).css("margin").replace(/\D/g,'');
 
-	$('#' + id).css("left", this.topLeft[0] + 'px');
-	$('#' + id).css("top", this.topLeft[1] + 'px');
+	$(div).css("left", this.topLeft[0] + 'px');
+	$(div).css("top", this.topLeft[1] + 'px');
 
-	$('#' + id).css("width", this.width + 'px');
-	$('#' + id).css("height", this.height + 'px');
+	$(div).css("width", this.width + 'px');
+	$(div).css("height", this.height + 'px');
 }
 function Chart(id){
 	this.id = id;
@@ -32,9 +31,10 @@ Chart.prototype.setData = function(data){};
 function Piechart(id, data, position, title, options){
 	this.id = id;
 	this.data = data;
-	this.panel = new Panel(id, position);
 	this.div = document.getElementById(this.id);
-	this.title = title;
+	this.containerDiv = document.createElement("div");	
+	this.position = position;
+	this.title = title;	
 	this.chart = "";
 	this.chartContext = "";
 
@@ -60,14 +60,19 @@ function Piechart(id, data, position, title, options){
 Piechart.prototype.constructor = Piechart;
 
 Piechart.prototype.initializeChart = function(){
-	this.div.innerHTML = "<h3>" + this.title + "</h3>";
-	var canvas = document.createElement('canvas');
-	canvas.setAttribute("id", 'geocharter-' + this.id);
-	canvas.width = this.div.clientWidth - window.getComputedStyle(this.div, null).getPropertyValue('padding-right').replace(/\D/g,'') - window.getComputedStyle(this.div, null).getPropertyValue('padding-left').replace(/\D/g,'');
-	canvas.height = this.div.clientHeight - window.getComputedStyle(this.div, null).getPropertyValue('padding-bottom').replace(/\D/g,'') - window.getComputedStyle(this.div, null).getPropertyValue('padding-top').replace(/\D/g,'') - $("h3").css("fontSize").replace(/\D/g,'') - $("h3").css("margin-top").replace(/\D/g,'') - $("h3").css("margin-bottom").replace(/\D/g,'');
+	this.containerDiv.setAttribute("class", "dasher-panel");
+	this.div.appendChild(this.containerDiv);
 
-	this.div.innerHTML = this.div.innerHTML + canvas.outerHTML;
-	this.chartContext = document.getElementById("geocharter-" + this.id).getContext("2d");
+	this.panel = new Panel(this.containerDiv, this.position);
+
+	this.containerDiv.innerHTML = "<h3>" + this.title + "</h3>";
+	var canvas = document.createElement('canvas');
+	canvas.width = this.containerDiv.clientWidth - window.getComputedStyle(this.containerDiv, null).getPropertyValue('padding-right').replace(/\D/g,'') - window.getComputedStyle(this.containerDiv, null).getPropertyValue('padding-left').replace(/\D/g,'');
+	canvas.height = this.containerDiv.clientHeight - window.getComputedStyle(this.containerDiv, null).getPropertyValue('padding-bottom').replace(/\D/g,'') - window.getComputedStyle(this.containerDiv, null).getPropertyValue('padding-top').replace(/\D/g,'') - $("h3").css("fontSize").replace(/\D/g,'') - $("h3").css("margin-top").replace(/\D/g,'') - $("h3").css("margin-bottom").replace(/\D/g,'');
+
+	this.containerDiv.appendChild(canvas);
+
+	this.chartContext = canvas.getContext("2d");
 };
 
 Piechart.prototype.setData = function(data){
@@ -76,11 +81,12 @@ Piechart.prototype.setData = function(data){
 function Barchart(id, data, position, title, options){
 	this.id = id;
 	this.data = data;
-	this.panel = new Panel(id, position);
 	this.div = document.getElementById(this.id);
+	this.containerDiv = document.createElement("div");	
+	this.position = position;
+	this.title = title;	
 	this.chart = "";
 	this.chartContext = "";
-	this.title = title;
 
 	var i;
 	for(i in options){
@@ -104,14 +110,19 @@ function Barchart(id, data, position, title, options){
 Barchart.prototype.constructor = Barchart;
 
 Barchart.prototype.initializeChart = function(){
-	this.div.innerHTML = "<h3>" + this.title + "</h3>";
-	var canvas = document.createElement('canvas');
-	canvas.setAttribute("id", 'geocharter-' + this.id);
-	canvas.width = this.div.clientWidth - window.getComputedStyle(this.div, null).getPropertyValue('padding-right').replace(/\D/g,'') - window.getComputedStyle(this.div, null).getPropertyValue('padding-left').replace(/\D/g,'');
-	canvas.height = this.div.clientHeight - window.getComputedStyle(this.div, null).getPropertyValue('padding-bottom').replace(/\D/g,'') - window.getComputedStyle(this.div, null).getPropertyValue('padding-top').replace(/\D/g,'') - $("h3").css("fontSize").replace(/\D/g,'') - $("h3").css("margin-top").replace(/\D/g,'') - $("h3").css("margin-bottom").replace(/\D/g,'');
+	this.containerDiv.setAttribute("class", "dasher-panel");
+	this.div.appendChild(this.containerDiv);
 
-	this.div.innerHTML = this.div.innerHTML + canvas.outerHTML;
-	this.chartContext = document.getElementById("geocharter-" + this.id).getContext("2d");
+	this.panel = new Panel(this.containerDiv, this.position);
+
+	this.containerDiv.innerHTML = "<h3>" + this.title + "</h3>";
+	var canvas = document.createElement('canvas');
+	canvas.width = this.containerDiv.clientWidth - window.getComputedStyle(this.containerDiv, null).getPropertyValue('padding-right').replace(/\D/g,'') - window.getComputedStyle(this.containerDiv, null).getPropertyValue('padding-left').replace(/\D/g,'');
+	canvas.height = this.containerDiv.clientHeight - window.getComputedStyle(this.containerDiv, null).getPropertyValue('padding-bottom').replace(/\D/g,'') - window.getComputedStyle(this.containerDiv, null).getPropertyValue('padding-top').replace(/\D/g,'') - $("h3").css("fontSize").replace(/\D/g,'') - $("h3").css("margin-top").replace(/\D/g,'') - $("h3").css("margin-bottom").replace(/\D/g,'');
+
+	this.containerDiv.appendChild(canvas);
+
+	this.chartContext = canvas.getContext("2d");
 };
 
 Barchart.prototype.setData = function(data){
@@ -120,9 +131,10 @@ Barchart.prototype.setData = function(data){
 function Linechart(id, data, position, title, options){
 	this.id = id;
 	this.data = data;
-	this.panel = new Panel(id, position);
 	this.div = document.getElementById(this.id);
-	this.title = title;
+	this.containerDiv = document.createElement("div");	
+	this.position = position;
+	this.title = title;	
 	this.chart = "";
 	this.chartContext = "";
 
@@ -148,14 +160,19 @@ function Linechart(id, data, position, title, options){
 Linechart.prototype.constructor = Linechart;
 
 Linechart.prototype.initializeChart = function(){
-	this.div.innerHTML = "<h3>" + this.title + "</h3>";
-	var canvas = document.createElement('canvas');
-	canvas.setAttribute("id", 'geocharter-' + this.id);
-	canvas.width = this.div.clientWidth - window.getComputedStyle(this.div, null).getPropertyValue('padding-right').replace(/\D/g,'') - window.getComputedStyle(this.div, null).getPropertyValue('padding-left').replace(/\D/g,'');
-	canvas.height = this.div.clientHeight - window.getComputedStyle(this.div, null).getPropertyValue('padding-bottom').replace(/\D/g,'') - window.getComputedStyle(this.div, null).getPropertyValue('padding-top').replace(/\D/g,'') - $("h3").css("fontSize").replace(/\D/g,'') - $("h3").css("margin-top").replace(/\D/g,'') - $("h3").css("margin-bottom").replace(/\D/g,'');
+	this.containerDiv.setAttribute("class", "dasher-panel");
+	this.div.appendChild(this.containerDiv);
 
-	this.div.innerHTML = this.div.innerHTML + canvas.outerHTML;
-	this.chartContext = document.getElementById("geocharter-" + this.id).getContext("2d");
+	this.panel = new Panel(this.containerDiv, this.position);
+
+	this.containerDiv.innerHTML = "<h3>" + this.title + "</h3>";
+	var canvas = document.createElement('canvas');
+	canvas.width = this.containerDiv.clientWidth - window.getComputedStyle(this.containerDiv, null).getPropertyValue('padding-right').replace(/\D/g,'') - window.getComputedStyle(this.containerDiv, null).getPropertyValue('padding-left').replace(/\D/g,'');
+	canvas.height = this.containerDiv.clientHeight - window.getComputedStyle(this.containerDiv, null).getPropertyValue('padding-bottom').replace(/\D/g,'') - window.getComputedStyle(this.containerDiv, null).getPropertyValue('padding-top').replace(/\D/g,'') - $("h3").css("fontSize").replace(/\D/g,'') - $("h3").css("margin-top").replace(/\D/g,'') - $("h3").css("margin-bottom").replace(/\D/g,'');
+
+	this.containerDiv.appendChild(canvas);
+
+	this.chartContext = canvas.getContext("2d");
 };
 
 Linechart.prototype.setData = function(data){
@@ -164,9 +181,10 @@ Linechart.prototype.setData = function(data){
 function Map(id, data, position, title, options){
 	this.id = id;
 	this.data = data;
-	this.panel = new Panel(id, position);
 	this.div = document.getElementById(this.id);
+	this.containerDiv = document.createElement("div");	
 	this.title = title;
+	this.position = position;
 	this.chart = "";
 	this.chartContext = "";
 
@@ -192,10 +210,15 @@ function Map(id, data, position, title, options){
 Map.prototype.constructor = Map;
 
 Map.prototype.initializeChart = function(){
-	this.div.innerHTML = "<h3>" + this.title + "</h3><div id=\"map\"></div>";
+	this.containerDiv.setAttribute("class", "dasher-panel");
+	this.div.appendChild(this.containerDiv);
 
-	$('#map').css("width", this.div.clientWidth - window.getComputedStyle(this.div, null).getPropertyValue('padding-right').replace(/\D/g,'') - window.getComputedStyle(this.div, null).getPropertyValue('padding-left').replace(/\D/g,''));
-	$('#map').css("height", this.div.clientHeight - window.getComputedStyle(this.div, null).getPropertyValue('padding-bottom').replace(/\D/g,'') - window.getComputedStyle(this.div, null).getPropertyValue('padding-top').replace(/\D/g,'') - $("h3").css("fontSize").replace(/\D/g,'') - $("h3").css("margin-top").replace(/\D/g,'') - $("h3").css("margin-bottom").replace(/\D/g,''));
+	this.panel = new Panel(this.containerDiv, this.position);
+
+	this.containerDiv.innerHTML = "<h3>" + this.title + "</h3><div id=\"map\"></div>";
+
+	$('#map').css("width", this.containerDiv.clientWidth - window.getComputedStyle(this.containerDiv, null).getPropertyValue('padding-right').replace(/\D/g,'') - window.getComputedStyle(this.containerDiv, null).getPropertyValue('padding-left').replace(/\D/g,''));
+	$('#map').css("height", this.containerDiv.clientHeight - window.getComputedStyle(this.containerDiv, null).getPropertyValue('padding-bottom').replace(/\D/g,'') - window.getComputedStyle(this.containerDiv, null).getPropertyValue('padding-top').replace(/\D/g,'') - $("h3").css("fontSize").replace(/\D/g,'') - $("h3").css("margin-top").replace(/\D/g,'') - $("h3").css("margin-bottom").replace(/\D/g,''));
 
 	this.map = L.map('map').setView([39, -77], 8);
 	console.log("here");
@@ -211,9 +234,10 @@ Map.prototype.setData = function(data){
 function Table(id, data, position, title, options){
 	this.id = id;
 	this.data = data;
-	this.panel = new Panel(id, position);
 	this.div = document.getElementById(this.id);
-	this.title = title;
+	this.containerDiv = document.createElement("div");	
+	this.position = position;
+	this.title = title;	
 	this.chart = "";
 	this.chartContext = "";
 
@@ -239,12 +263,18 @@ function Table(id, data, position, title, options){
 Table.prototype.constructor = Table;
 
 Table.prototype.initializeChart = function(){
-	this.div.innerHTML = '<div id="geocharter-' + this.id + '" class="table-container"></div>';
+	this.containerDiv.setAttribute("class", "dasher-panel");
+	this.div.appendChild(this.containerDiv);
 
-	$('#geocharter-' + this.id).css("width", this.div.clientWidth - window.getComputedStyle(this.div, null).getPropertyValue('padding-right').replace(/\D/g,'') - window.getComputedStyle(this.div, null).getPropertyValue('padding-left').replace(/\D/g,''));
-	$('#geocharter-' + this.id).css("height", this.div.clientHeight - $("h3").css("fontSize").replace(/\D/g,''));
+	this.panel = new Panel(this.containerDiv, this.position);
 
-	console.log(this.div.innerHTML);
+//	this.containerDiv.innerHTML = '<div class="table-container"></div>';
+
+
+
+//	$(this.containerDiv).css("width", this.containerDiv.clientWidth - window.getComputedStyle(this.containerDiv, null).getPropertyValue('padding-right').replace(/\D/g,'') - window.getComputedStyle(this.containerDiv, null).getPropertyValue('padding-left').replace(/\D/g,''));
+//	$(this.containerDiv).css("height", this.containerDiv.clientHeight - $("h3").css("fontSize").replace(/\D/g,''));
+
 };
 
 Table.prototype.setData = function(data){
@@ -266,5 +296,7 @@ Table.prototype.setData = function(data){
 
 	tableString += '</tbody></table></div>';
 
-	document.getElementById('geocharter-' + this.id).innerHTML = tableString;
+	this.containerDiv.innerHTML = tableString;
+
+	$('.table-container').css("height", this.containerDiv.clientHeight - window.getComputedStyle(this.containerDiv, null).getPropertyValue('padding-bottom').replace(/\D/g,'') - window.getComputedStyle(this.containerDiv, null).getPropertyValue('padding-top').replace(/\D/g,'') - $("h3").css("fontSize").replace(/\D/g,'') - $("h3").css("margin-top").replace(/\D/g,'') - $("h3").css("margin-bottom").replace(/\D/g,''));
 };

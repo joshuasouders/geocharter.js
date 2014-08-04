@@ -1,9 +1,10 @@
 function Linechart(id, data, position, title, options){
 	this.id = id;
 	this.data = data;
-	this.panel = new Panel(id, position);
 	this.div = document.getElementById(this.id);
-	this.title = title;
+	this.containerDiv = document.createElement("div");	
+	this.position = position;
+	this.title = title;	
 	this.chart = "";
 	this.chartContext = "";
 
@@ -29,14 +30,19 @@ function Linechart(id, data, position, title, options){
 Linechart.prototype.constructor = Linechart;
 
 Linechart.prototype.initializeChart = function(){
-	this.div.innerHTML = "<h3>" + this.title + "</h3>";
-	var canvas = document.createElement('canvas');
-	canvas.setAttribute("id", 'geocharter-' + this.id);
-	canvas.width = this.div.clientWidth - window.getComputedStyle(this.div, null).getPropertyValue('padding-right').replace(/\D/g,'') - window.getComputedStyle(this.div, null).getPropertyValue('padding-left').replace(/\D/g,'');
-	canvas.height = this.div.clientHeight - window.getComputedStyle(this.div, null).getPropertyValue('padding-bottom').replace(/\D/g,'') - window.getComputedStyle(this.div, null).getPropertyValue('padding-top').replace(/\D/g,'') - $("h3").css("fontSize").replace(/\D/g,'') - $("h3").css("margin-top").replace(/\D/g,'') - $("h3").css("margin-bottom").replace(/\D/g,'');
+	this.containerDiv.setAttribute("class", "dasher-panel");
+	this.div.appendChild(this.containerDiv);
 
-	this.div.innerHTML = this.div.innerHTML + canvas.outerHTML;
-	this.chartContext = document.getElementById("geocharter-" + this.id).getContext("2d");
+	this.panel = new Panel(this.containerDiv, this.position);
+
+	this.containerDiv.innerHTML = "<h3>" + this.title + "</h3>";
+	var canvas = document.createElement('canvas');
+	canvas.width = this.containerDiv.clientWidth - window.getComputedStyle(this.containerDiv, null).getPropertyValue('padding-right').replace(/\D/g,'') - window.getComputedStyle(this.containerDiv, null).getPropertyValue('padding-left').replace(/\D/g,'');
+	canvas.height = this.containerDiv.clientHeight - window.getComputedStyle(this.containerDiv, null).getPropertyValue('padding-bottom').replace(/\D/g,'') - window.getComputedStyle(this.containerDiv, null).getPropertyValue('padding-top').replace(/\D/g,'') - $("h3").css("fontSize").replace(/\D/g,'') - $("h3").css("margin-top").replace(/\D/g,'') - $("h3").css("margin-bottom").replace(/\D/g,'');
+
+	this.containerDiv.appendChild(canvas);
+
+	this.chartContext = canvas.getContext("2d");
 };
 
 Linechart.prototype.setData = function(data){

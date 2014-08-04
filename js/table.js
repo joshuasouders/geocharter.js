@@ -1,9 +1,10 @@
 function Table(id, data, position, title, options){
 	this.id = id;
 	this.data = data;
-	this.panel = new Panel(id, position);
 	this.div = document.getElementById(this.id);
-	this.title = title;
+	this.containerDiv = document.createElement("div");	
+	this.position = position;
+	this.title = title;	
 	this.chart = "";
 	this.chartContext = "";
 
@@ -29,12 +30,10 @@ function Table(id, data, position, title, options){
 Table.prototype.constructor = Table;
 
 Table.prototype.initializeChart = function(){
-	this.div.innerHTML = '<div id="geocharter-' + this.id + '" class="table-container"></div>';
+	this.containerDiv.setAttribute("class", "dasher-panel");
+	this.div.appendChild(this.containerDiv);
 
-	$('#geocharter-' + this.id).css("width", this.div.clientWidth - window.getComputedStyle(this.div, null).getPropertyValue('padding-right').replace(/\D/g,'') - window.getComputedStyle(this.div, null).getPropertyValue('padding-left').replace(/\D/g,''));
-	$('#geocharter-' + this.id).css("height", this.div.clientHeight - $("h3").css("fontSize").replace(/\D/g,''));
-
-	console.log(this.div.innerHTML);
+	this.panel = new Panel(this.containerDiv, this.position);
 };
 
 Table.prototype.setData = function(data){
@@ -56,5 +55,7 @@ Table.prototype.setData = function(data){
 
 	tableString += '</tbody></table></div>';
 
-	document.getElementById('geocharter-' + this.id).innerHTML = tableString;
+	this.containerDiv.innerHTML = tableString;
+
+	$('.table-container').css("height", this.containerDiv.clientHeight - window.getComputedStyle(this.containerDiv, null).getPropertyValue('padding-bottom').replace(/\D/g,'') - window.getComputedStyle(this.containerDiv, null).getPropertyValue('padding-top').replace(/\D/g,'') - $("h3").css("fontSize").replace(/\D/g,'') - $("h3").css("margin-top").replace(/\D/g,'') - $("h3").css("margin-bottom").replace(/\D/g,''));
 };
