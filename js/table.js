@@ -7,6 +7,7 @@ function Table(id, data, position, title, options){
 	this.title = title;	
 	this.chart = "";
 	this.chartContext = "";
+	this.options = [];
 
 	var i;
 	for(i in options){
@@ -46,8 +47,6 @@ Table.prototype.setData = function(data){
 	for(var entry in data.data){
 		tableString += '<tr>';
 		for(var value in data.data[entry]){
-			console.log(data.data[entry][value]);
-
 			tableString += '<td>' + data.data[entry][value] + '</td>';
 		}
 		tableString += '</tr>';

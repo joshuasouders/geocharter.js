@@ -199,12 +199,12 @@ $(document).ready(function(){
 });
 
 function printBarCharts(){
-	 bar1 = new Barchart("container-1", data, {topLeft: [0,0], bottomRight: [3, 2]}, "Test 1", {title: "Test 1"});
-	 bar2 = new Map("container-1", mapdata, {topLeft: [3, 0], bottomRight: [8, 3]}, "Test 2", {title: "Test 2"});
-	 bar3 = new Piechart("container-1", datapie, {topLeft: [8, 0], bottomRight: [12, 5]}, "Test 3", {title: "Test 3"});
-	 bar4 = new Barchart("container-1", data, {topLeft: [3, 5], bottomRight: [5, 7]}, "Test 4", {title: "Test 4"});
-	 bar8 = new Linechart("container-1", dataline, {topLeft: [3, 3], bottomRight: [8, 5]}, "Test 8", {title: "Test 8"});
-	 bar5 = new Piechart("container-1", datapie, {topLeft: [0, 2], bottomRight: [3, 7]}, "Test 5", {title: "Test 5"});
-	 bar6 = new Linechart("container-1", dataline, {topLeft: [0, 7], bottomRight: [12, 10]}, "Test 6", {title: "Test 6"});
-	 bar7 = new Table("container-1", tabledata, {topLeft: [5, 5], bottomRight: [12, 7]}, "Test 7", {title: "Test 7"});
+	 bar1 = new Barchart("container-1", data, {topLeft: [0,0], bottomRight: [3, 2]}, "Test 1");
+	 bar2 = new Map("container-1", mapdata, {topLeft: [3, 0], bottomRight: [8, 3]}, "Test 2");
+	 bar3 = new Piechart("container-1", datapie, {topLeft: [8, 0], bottomRight: [12, 5]}, "Test 3");
+	 bar4 = new Barchart("container-1", data, {topLeft: [3, 5], bottomRight: [5, 7]}, "Test 4");
+	 bar8 = new Linechart("container-1", dataline, {topLeft: [3, 3], bottomRight: [8, 5]}, "Test 8");
+	 bar5 = new Piechart("container-1", datapie, {topLeft: [0, 2], bottomRight: [3, 7]}, "Test 5");
+	 bar6 = new Linechart("container-1", dataline, {topLeft: [0, 7], bottomRight: [12, 10]}, "Test 6");
+	 bar7 = new Table("container-1", tabledata, {topLeft: [5, 5], bottomRight: [12, 7]}, "Test 7");
 };

@@ -37,6 +37,7 @@ function Piechart(id, data, position, title, options){
 	this.title = title;	
 	this.chart = "";
 	this.chartContext = "";
+	this.options = [];
 
 	var i;
 	for(i in options){
@@ -87,6 +88,7 @@ function Barchart(id, data, position, title, options){
 	this.title = title;	
 	this.chart = "";
 	this.chartContext = "";
+	this.options = [];
 
 	var i;
 	for(i in options){
@@ -137,6 +139,7 @@ function Linechart(id, data, position, title, options){
 	this.title = title;	
 	this.chart = "";
 	this.chartContext = "";
+	this.options = [];
 
 	var i;
 	for(i in options){
@@ -187,6 +190,7 @@ function Map(id, data, position, title, options){
 	this.position = position;
 	this.chart = "";
 	this.chartContext = "";
+	this.options = [];
 
 	var i;
 	for(i in options){
@@ -221,7 +225,7 @@ Map.prototype.initializeChart = function(){
 	$('#map').css("height", this.containerDiv.clientHeight - window.getComputedStyle(this.containerDiv, null).getPropertyValue('padding-bottom').replace(/\D/g,'') - window.getComputedStyle(this.containerDiv, null).getPropertyValue('padding-top').replace(/\D/g,'') - $("h3").css("fontSize").replace(/\D/g,'') - $("h3").css("margin-top").replace(/\D/g,'') - $("h3").css("margin-bottom").replace(/\D/g,''));
 
 	this.map = L.map('map').setView([39, -77], 8);
-	console.log("here");
+	
 	L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 	    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
 	    maxZoom: 18
@@ -240,6 +244,7 @@ function Table(id, data, position, title, options){
 	this.title = title;	
 	this.chart = "";
 	this.chartContext = "";
+	this.options = [];
 
 	var i;
 	for(i in options){
@@ -267,14 +272,6 @@ Table.prototype.initializeChart = function(){
 	this.div.appendChild(this.containerDiv);
 
 	this.panel = new Panel(this.containerDiv, this.position);
-
-//	this.containerDiv.innerHTML = '<div class="table-container"></div>';
-
-
-
-//	$(this.containerDiv).css("width", this.containerDiv.clientWidth - window.getComputedStyle(this.containerDiv, null).getPropertyValue('padding-right').replace(/\D/g,'') - window.getComputedStyle(this.containerDiv, null).getPropertyValue('padding-left').replace(/\D/g,''));
-//	$(this.containerDiv).css("height", this.containerDiv.clientHeight - $("h3").css("fontSize").replace(/\D/g,''));
-
 };
 
 Table.prototype.setData = function(data){
@@ -287,8 +284,6 @@ Table.prototype.setData = function(data){
 	for(var entry in data.data){
 		tableString += '<tr>';
 		for(var value in data.data[entry]){
-			console.log(data.data[entry][value]);
-
 			tableString += '<td>' + data.data[entry][value] + '</td>';
 		}
 		tableString += '</tr>';

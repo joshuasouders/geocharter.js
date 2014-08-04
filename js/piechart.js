@@ -7,6 +7,7 @@ function Piechart(id, data, position, title, options){
 	this.title = title;	
 	this.chart = "";
 	this.chartContext = "";
+	this.options = [];
 
 	var i;
 	for(i in options){
