@@ -30,7 +30,6 @@ Piechart.prototype.constructor = Piechart;
 
 Piechart.prototype.initializeChart = function(){
 	this.div.innerHTML = "<h3>" + this.title + "</h3>";
-	console.log($("h3").css("fontSize").replace(/\D/g,''));
 	var canvas = document.createElement('canvas');
 	canvas.setAttribute("id", 'geocharter-' + this.id);
 	canvas.width = this.div.clientWidth - window.getComputedStyle(this.div, null).getPropertyValue('padding-right').replace(/\D/g,'') - window.getComputedStyle(this.div, null).getPropertyValue('padding-left').replace(/\D/g,'');

@@ -67,6 +67,52 @@ var dataline = {
     ]
 };
 
+var tabledata = {
+  labels: ['Label 1', 'Label 2', 'Label 3'],
+  data: [
+    {
+      label1: '11',
+      label2: '12',
+      label3: '13'
+    },
+    {
+      label1: '21',
+      label2: '22',
+      label3: '23'
+    },
+    {
+      label1: '31',
+      label2: '32',
+      label3: '33'
+    },
+    {
+      label1: '41',
+      label2: '42',
+      label3: '43'
+    },
+    {
+      label1: '51',
+      label2: '52',
+      label3: '53'
+    },
+    {
+      label1: '61',
+      label2: '62',
+      label3: '63'
+    },
+    {
+      label1: '71',
+      label2: '72',
+      label3: '73'
+    },
+    {
+      label1: '81',
+      label2: '82',
+      label3: '83'
+    }
+  ]
+}
+
 var mapdata = {
   "type": "FeatureCollection",
   "features": [
@@ -160,5 +206,5 @@ function printBarCharts(){
 	 bar8 = new Linechart("8", dataline, {topLeft: [3, 3], bottomRight: [8, 5]}, "Test 8", {title: "Test 8"});
 	 bar5 = new Piechart("5", datapie, {topLeft: [0, 2], bottomRight: [3, 7]}, "Test 5", {title: "Test 5"});
 	 bar6 = new Linechart("6", dataline, {topLeft: [0, 7], bottomRight: [12, 10]}, "Test 6", {title: "Test 6"});
-	 bar7 = new Barchart("7", data, {topLeft: [5, 5], bottomRight: [12, 7]}, "Test 7", {title: "Test 7"});
+	 bar7 = new Table("7", tabledata, {topLeft: [5, 5], bottomRight: [12, 7]}, "Test 7", {title: "Test 7"});
 };
